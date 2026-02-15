@@ -697,7 +697,7 @@ if %attack_counter% equ 0 ( del /Q /F importwifi.xml 2>nul & goto :eof )
 call :color_echo . white "Attempts ("
 call :color_echo . magenta "%attack_counter%"
 call :color_echo . white ") "
-timeout /t 0.5 /nobreak >nul
+ping -n 1 -w 500 >nul
 
 call :interface_find_state
 if "%interface_state%"=="connected" ( call :color_echo . green "Connected" & echo. & del /Q /F importwifi.xml 2>nul & call :attack_success & goto :eof )
