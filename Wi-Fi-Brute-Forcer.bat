@@ -1,6 +1,6 @@
 @echo off
 :: Wi-Fi Brute Forcer - Developed By LePetiot37
-:: Please refer to https://github.com/lepetiot-jpn for more projects
+:: Please refer to https://github.com/lepetiot37-jpn for more projects
 
 :: This program is created to be a proof of concept that it is possible
 :: to write a working Wi-Fi attack tool with Batchfiles since there 
@@ -11,6 +11,23 @@
 
 :: There is already a wordlist file in the repository but you are free
 :: to use your own wordlists.
+
+
+:: Active ANSI (Windows 10+)
+chcp 65001 >nul
+set "ESC="
+for /f %%a in ('echo prompt $E ^| cmd') do set "ESC=%%a"
+
+:: Variables couleur
+set "_yellow=%ESC%[33m"
+set "_green=%ESC%[32m"
+set "_cyan=%ESC%[36m"
+set "_red=%ESC%[31m"
+set "_default=%ESC%[0m"
+
+:: Version
+set "_ver=1.0"
+
 
 cls
 setlocal enabledelayedexpansion
@@ -321,24 +338,29 @@ goto :eof
 goto :eof
 
 :mainmenu
-    cls
+cls
     echo.
-	echo.
-	echo.                      ______________
-	echo                   ___/              \_
-	echo         \_       /       _  __________\       _/
-	echo           \     /         \/           \     /
-	echo                /     \     \            \
-	echo      \_       /  \    \     \______      \       _/
-	echo        \      \   \    \     \___//      /      /
-	echo                \__/\__/ \___/  __/      /
-	echo                 \             /        /
-	echo        \_        \                    /        _/
-	echo          \        \                  /        /
-	echo                    \________________/
-	echo.
+    echo !_yellow! [---------------------------------------------------------------------------]
+    echo.!_Green!
+    echo.                              ______________
+    echo                           ___/              \_
+    echo                 \_       /       _  __________\       _/
+    echo                   \     /         \/           \     /
+    echo                        /     \     \            \
+    echo              \_       /  \    \     \______      \       _/
+    echo                \      \   \    \     \___//      /      /
+    echo                        \__/\__/ \___/  __/      /
+    echo                         \             /        /
+    echo                \_        \                    /        _/
+    echo                  \        \                  /        /
+    echo                            \________________/
     echo.
-    call :color_echo . cyan "Wi-Fi Brute Forcer - By LePetiot37"
+    echo !_yellow! [---------------------------------------------------------------------------]
+    echo.                      !_cyan!Brute Force Manager Version !_Red!!_ver!
+    echo.                          !_yellow!Developed by !_Cyan!LePetiot37
+    echo.                          !_yellow!Improved by !_Cyan!LePetiot37
+    echo !_yellow! [---------------------------------------------------------------------------]
+    echo. !_Default!
     echo.
     echo.
     call :color_echo . magenta "Interface : "
@@ -698,7 +720,6 @@ call :color_echo . white "Attempts ("
 call :color_echo . magenta "%attack_counter%"
 call :color_echo . white ") "
 ping -n 1 -w 500 >nul
-
 call :interface_find_state
 if "%interface_state%"=="connected" ( call :color_echo . green "Connected" & echo. & del /Q /F importwifi.xml 2>nul & call :attack_success & goto :eof )
 if "%interface_state%"=="authenticating" ( call :color_echo . blue "Authenticating" & echo. )
